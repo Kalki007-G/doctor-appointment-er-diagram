@@ -26,7 +26,7 @@ Endpoint
 
 GET / → Returns a Hello World response
 
-PostgreSQL Database Connection
+## PostgreSQL Database Connection
 
 The backend is connected to a PostgreSQL database using TypeORM.
 
