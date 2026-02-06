@@ -1,8 +1,9 @@
-# doctor-appointment-er-diagram# Doctor Appointment Scheduling System – ER Diagram
+# Doctor Appointment Scheduling System
 
-This repository contains the ER diagram for a doctor-patient appointment scheduling system.
+This repository contains the backend internship task for a **Doctor Appointment Scheduling System**.
 
-## Entities
+## ER Diagram
+The ER diagram represents the core data model of the system and includes the following entities:
 - User
 - Doctor
 - Patient
@@ -10,9 +11,31 @@ This repository contains the ER diagram for a doctor-patient appointment schedul
 - Appointment
 - Payment
 
-## Description
-Patients can book appointments with doctors based on available time slots.
-The system maintains normalized data and clear relationships between entities.
+The design follows proper normalization and clearly defines relationships between doctors, patients, availability slots, and appointments.
 
-## Loom Video
+## Backend – Hello World API (NestJS + TypeScript)
+A simple backend application is implemented using **NestJS and TypeScript** to verify API setup and routing.
 
+### How to run
+cd backend-nest/hello-nest-api
+npm install
+npm run start
+
+
+Endpoint
+
+GET / → Returns a Hello World response
+
+## PostgreSQL Database Connection
+
+The backend is connected to a PostgreSQL database using TypeORM.
+
+Database Engine: PostgreSQL
+
+Database Name: doctor_appointment_db
+
+ORM: TypeORM
+
+Entity synchronization enabled for development
+
+The application successfully connects to PostgreSQL and creates database tables on startup.
