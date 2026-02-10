@@ -7,9 +7,6 @@ export class CreateDoctorProfileDto {
   @IsNumber()
   experience!: number;
 
-  @IsNumber()
-  consultationFee!: number;
-
   @IsOptional()
   @IsString()
   bio?: string;

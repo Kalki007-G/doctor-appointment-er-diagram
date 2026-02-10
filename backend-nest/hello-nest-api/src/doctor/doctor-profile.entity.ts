@@ -22,9 +22,6 @@ export class DoctorProfile {
   @Column()
   experience!: number;
 
-  @Column()
-  consultationFee!: number;
-
   @Column({ nullable: true })
   bio?: string;
 }
