@@ -17,9 +17,6 @@ export class DoctorProfile {
   doctor!: Doctor;
 
   @Column()
-  specialization!: string;
-
-  @Column()
   experience!: number;
 
   @Column({ nullable: true })

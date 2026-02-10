@@ -5,7 +5,9 @@ import {
   OneToOne,
   JoinColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Specialization } from './specialization.entity';
 import { User } from '../users/user.entity';
 
 export enum DoctorStatus {
@@ -33,4 +35,7 @@ export class Doctor {
 
   @CreateDateColumn()
   createdAt!: Date;
+
+  @OneToMany(() => Specialization, (spec) => spec.doctor)
+  specializations!: Specialization[];
 }

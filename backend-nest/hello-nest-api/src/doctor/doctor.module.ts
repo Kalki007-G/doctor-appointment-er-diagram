@@ -7,6 +7,7 @@ import { DoctorController } from './doctor.controller';
 import { User } from '../users/user.entity';
 import { DoctorProfile } from './doctor-profile.entity';
 import { DoctorVerificationToken } from './doctor-verification-token.entity';
+import { Specialization } from './specialization.entity';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { DoctorVerificationToken } from './doctor-verification-token.entity';
       User,
       DoctorProfile,
       DoctorVerificationToken,
+      Specialization,
     ]),
   ],
   providers: [DoctorService],

@@ -6,9 +6,13 @@ import { Doctor, DoctorStatus } from './doctor.entity';
 import { User, UserRole } from '../users/user.entity';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
 import { DoctorProfile } from './doctor-profile.entity';
-import { CreateDoctorProfileDto } from './dto/create-doctor-profile.dto';
+import {
+  CreateDoctorProfileDto,
+  CreateSpecializationDto,
+} from './dto/create-doctor-profile.dto';
 import { randomUUID } from 'crypto';
 import { DoctorVerificationToken } from './doctor-verification-token.entity';
+import { Specialization } from './specialization.entity';
 
 @Injectable()
 export class DoctorService {
@@ -24,6 +28,9 @@ export class DoctorService {
 
     @InjectRepository(DoctorVerificationToken)
     private verificationRepo: Repository<DoctorVerificationToken>,
+
+    @InjectRepository(Specialization)
+    private specializationRepo: Repository<Specialization>,
   ) {}
 
   async registerDoctor(dto: RegisterDoctorDto) {
@@ -101,5 +108,21 @@ export class DoctorService {
     await this.doctorRepository.save(record.doctor);
 
     return { message: 'Doctor verified successfully' };
+  }
+  async addSpecialization(doctorId: number, dto: CreateSpecializationDto) {
+    const doctor = await this.doctorRepository.findOne({
+      where: { id: doctorId },
+    });
+
+    if (!doctor) {
+      throw new BadRequestException('Doctor not found');
+    }
+
+    const specialization = this.specializationRepo.create({
+      name: dto.name,
+      doctor,
+    });
+
+    return this.specializationRepo.save(specialization);
   }
 }

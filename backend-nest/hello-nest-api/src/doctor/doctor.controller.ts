@@ -1,7 +1,10 @@
 import { Controller, Post, Body, Param } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
-import { CreateDoctorProfileDto } from './dto/create-doctor-profile.dto';
+import {
+  CreateDoctorProfileDto,
+  CreateSpecializationDto,
+} from './dto/create-doctor-profile.dto';
 
 @Controller('doctors')
 export class DoctorController {
@@ -18,5 +21,12 @@ export class DoctorController {
   @Post('verify/:token')
   async verifyDoctor(@Param('token') token: string) {
     return this.doctorService.verifyDoctor(token);
+  }
+  @Post(':id/specializations')
+  addSpecialization(
+    @Param('id') id: number,
+    @Body() dto: CreateSpecializationDto,
+  ) {
+    return this.doctorService.addSpecialization(id, dto);
   }
 }

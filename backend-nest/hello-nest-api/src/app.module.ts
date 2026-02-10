@@ -2,11 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { Doctor } from './doctor/doctor.entity';
-import { User } from './users/user.entity';
 import { DoctorModule } from './doctor/doctor.module';
-import { DoctorProfile } from './doctor/doctor-profile.entity';
-import { DoctorVerificationToken } from './doctor/doctor-verification-token.entity';
 
 @Module({
   imports: [
@@ -24,7 +20,7 @@ import { DoctorVerificationToken } from './doctor/doctor-verification-token.enti
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_NAME'),
-        entities: [User, Doctor, DoctorProfile, DoctorVerificationToken],
+        autoLoadEntities: true,
         synchronize: true,
       }),
     }),
