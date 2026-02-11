@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Specialization } from './specialization.entity';
 import { User } from '../users/user.entity';
+import { Availability } from './availability.entity';
 
 export enum DoctorStatus {
   PENDING = 'PENDING',
@@ -38,4 +39,7 @@ export class Doctor {
 
   @OneToMany(() => Specialization, (spec) => spec.doctor)
   specializations!: Specialization[];
+
+  @OneToMany(() => Availability, (availability) => availability.doctor)
+  availabilities!: Availability[];
 }

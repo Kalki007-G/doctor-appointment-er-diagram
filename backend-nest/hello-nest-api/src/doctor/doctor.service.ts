@@ -6,6 +6,9 @@ import { Doctor, DoctorStatus } from './doctor.entity';
 import { User, UserRole } from '../users/user.entity';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
 import { DoctorProfile } from './doctor-profile.entity';
+import { Availability } from './availability.entity';
+import { CreateAvailabilityDto } from './dto/create-availability.dto';
+
 import {
   CreateDoctorProfileDto,
   CreateSpecializationDto,
@@ -31,6 +34,9 @@ export class DoctorService {
 
     @InjectRepository(Specialization)
     private specializationRepo: Repository<Specialization>,
+
+    @InjectRepository(Availability)
+    private availabilityRepository: Repository<Availability>,
   ) {}
 
   async registerDoctor(dto: RegisterDoctorDto) {
@@ -124,5 +130,21 @@ export class DoctorService {
     });
 
     return this.specializationRepo.save(specialization);
+  }
+  async addAvailability(doctorId: number, dto: CreateAvailabilityDto) {
+    const doctor = await this.doctorRepository.findOne({
+      where: { id: doctorId },
+    });
+
+    if (!doctor) {
+      throw new BadRequestException('Doctor not found');
+    }
+
+    const availability = this.availabilityRepository.create({
+      doctor,
+      ...dto,
+    });
+
+    return this.availabilityRepository.save(availability);
   }
 }

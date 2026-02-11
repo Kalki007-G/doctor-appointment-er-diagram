@@ -8,6 +8,7 @@ import { User } from '../users/user.entity';
 import { DoctorProfile } from './doctor-profile.entity';
 import { DoctorVerificationToken } from './doctor-verification-token.entity';
 import { Specialization } from './specialization.entity';
+import { Availability } from './availability.entity';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { Specialization } from './specialization.entity';
       DoctorProfile,
       DoctorVerificationToken,
       Specialization,
+      Availability,
     ]),
   ],
   providers: [DoctorService],

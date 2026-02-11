@@ -1,6 +1,8 @@
 import { Controller, Post, Body, Param } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
+import { CreateAvailabilityDto } from './dto/create-availability.dto';
+
 import {
   CreateDoctorProfileDto,
   CreateSpecializationDto,
@@ -28,5 +30,10 @@ export class DoctorController {
     @Body() dto: CreateSpecializationDto,
   ) {
     return this.doctorService.addSpecialization(id, dto);
+  }
+
+  @Post(':id/availability')
+  addAvailability(@Param('id') id: number, @Body() dto: CreateAvailabilityDto) {
+    return this.doctorService.addAvailability(Number(id), dto);
   }
 }
