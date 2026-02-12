@@ -18,6 +18,12 @@ export class User {
   @Column({ unique: true })
   email!: string;
 
+  @Column({ nullable: true })
+  password!: string;
+
+  @Column({ nullable: true })
+  googleId!: string;
+
   @Column()
   name!: string;
 
@@ -26,6 +32,9 @@ export class User {
     enum: UserRole,
   })
   role!: UserRole;
+
+  @Column({ default: false })
+  isVerified!: boolean;
 
   @CreateDateColumn()
   createdAt!: Date;

@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 
 import { Doctor, DoctorStatus } from './doctor.entity';
 import { User, UserRole } from '../users/user.entity';
-import { RegisterDoctorDto } from './dto/register-doctor.dto';
 import { DoctorProfile } from './doctor-profile.entity';
 import { Availability } from './availability.entity';
 import { CreateAvailabilityDto } from './dto/create-availability.dto';
@@ -39,24 +38,23 @@ export class DoctorService {
     private availabilityRepository: Repository<Availability>,
   ) {}
 
-  async registerDoctor(dto: RegisterDoctorDto) {
-    const { email, name } = dto;
-
-    const existingUser = await this.userRepository.findOne({
-      where: { email },
+  async onboardDoctor(userId: number) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
     });
 
-    if (existingUser) {
-      throw new BadRequestException('User already registered');
+    if (!user || user.role !== UserRole.DOCTOR) {
+      throw new BadRequestException('Only doctors can onboard');
     }
 
-    const user = this.userRepository.create({
-      email,
-      name,
-      role: UserRole.DOCTOR,
+    const existingDoctor = await this.doctorRepository.findOne({
+      where: { user: { id: userId } },
+      relations: ['user'],
     });
 
-    await this.userRepository.save(user);
+    if (existingDoctor) {
+      throw new BadRequestException('Doctor already onboarded');
+    }
 
     const doctor = this.doctorRepository.create({
       user,
@@ -68,15 +66,14 @@ export class DoctorService {
     const token = this.verificationRepo.create({
       token: randomUUID(),
       doctor,
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24h
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
 
     await this.verificationRepo.save(token);
 
     return {
-      message: 'Doctor registered successfully',
+      message: 'Doctor onboarded successfully',
       doctorId: doctor.id,
-      status: doctor.status,
       verificationToken: token.token,
     };
   }
