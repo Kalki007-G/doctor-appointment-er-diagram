@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DoctorModule } from './doctor/doctor.module';
 import { AuthModule } from './auth/auth.module';
 import { PatientModule } from './patient/patient.module';
+import { AppointmentModule } from './appointments/appointment.module';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { PatientModule } from './patient/patient.module';
     DoctorModule,
 
     AuthModule,
-
+    AppointmentModule,
     PatientModule,
   ],
 })

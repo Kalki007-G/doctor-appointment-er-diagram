@@ -10,6 +10,7 @@ import {
 import { Specialization } from './specialization.entity';
 import { User } from '../users/user.entity';
 import { Availability } from './availability.entity';
+import { Appointment } from 'src/appointments/appointment.entity';
 
 export enum DoctorStatus {
   PENDING = 'PENDING',
@@ -42,4 +43,7 @@ export class Doctor {
 
   @OneToMany(() => Availability, (availability) => availability.doctor)
   availabilities!: Availability[];
+
+  @OneToMany(() => Appointment, (appointment) => appointment.doctor)
+  appointments!: Appointment[];
 }
